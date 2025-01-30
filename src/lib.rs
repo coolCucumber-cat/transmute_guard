@@ -1,3 +1,4 @@
+#![no_std]
 // #![feature(ascii_char)]
 
 /// # Safety
