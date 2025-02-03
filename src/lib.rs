@@ -231,8 +231,8 @@ macro_rules! enum_alias {
 
         }
 
-        unsafe impl $crate::utils::TransmuteGuard<$name> for $ty {}
-        unsafe impl $crate::utils::SafeTransmuteFrom<$name> for $ty {
+        unsafe impl $crate::TransmuteGuard<$name> for $ty {}
+        unsafe impl $crate::SafeTransmuteFrom<$name> for $ty {
             #[inline]
             fn safe_transmute_from(value: $name) -> Self {
                 $name::as_parent(value)
