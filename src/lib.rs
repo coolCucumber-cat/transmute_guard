@@ -61,13 +61,13 @@ where
 #[cfg(feature = "ascii")]
 unsafe impl<U> TransmuteGuard<[U]> for str where core::ascii::Char: SafeTransmuteFrom<U> {}
 #[cfg(feature = "ascii")]
-unsafe impl<T> SafeTransmuteRefFrom<[T]> for str
+unsafe impl<U> SafeTransmuteRefFrom<[U]> for str
 where
-    core::ascii::Char: SafeTransmuteFrom<T>,
+    core::ascii::Char: SafeTransmuteFrom<U>,
 {
     #[inline]
-    fn safe_transmute_ref_from(value: &[T]) -> &Self {
-        let u_ptr: *const [T] = core::ptr::from_ref(value);
+    fn safe_transmute_ref_from(value: &[U]) -> &Self {
+        let u_ptr: *const [U] = core::ptr::from_ref(value);
         let s_ptr: *const str = u_ptr as *const str;
         unsafe { &*(s_ptr) }
     }
@@ -79,7 +79,7 @@ where
 {
     #[inline]
     fn safe_transmute_mut_from(value: &mut [U]) -> &mut Self {
-        let u_ptr: *mut [T] = core::ptr::from_mut(value);
+        let u_ptr: *mut [U] = core::ptr::from_mut(value);
         let s_ptr: *mut str = u_ptr as *mut str;
         unsafe { &mut *(s_ptr) }
     }
