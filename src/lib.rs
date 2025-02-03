@@ -1,5 +1,4 @@
 #![no_std]
-// #![feature(ascii_char)]
 
 /// # Safety
 /// Only implement this trait if transmuting from `T` to `Self` and vice versa is safe
@@ -58,9 +57,9 @@ where
     }
 }
 
-#[cfg(feature = "ascii_char")]
+#[cfg(feature = "ascii")]
 unsafe impl<U> TransmuteGuard<[U]> for str where core::ascii::Char: SafeTransmuteFrom<U> {}
-#[cfg(feature = "ascii_char")]
+#[cfg(feature = "ascii")]
 unsafe impl<T> SafeTransmuteRefFrom<[T]> for str
 where
     core::ascii::Char: SafeTransmuteFrom<T>,
@@ -73,7 +72,7 @@ where
         unsafe { core::str::from_utf8_unchecked(s) }
     }
 }
-#[cfg(feature = "ascii_char")]
+#[cfg(feature = "ascii")]
 unsafe impl<U> SafeTransmuteMutFrom<[U]> for str
 where
     core::ascii::Char: SafeTransmuteFrom<U>,
@@ -87,13 +86,21 @@ where
     }
 }
 
-#[cfg(feature = "ascii_char")]
+#[cfg(feature = "ascii")]
 unsafe impl TransmuteGuard<core::ascii::Char> for u8 {}
-#[cfg(feature = "ascii_char")]
+#[cfg(feature = "ascii")]
 unsafe impl SafeTransmuteFrom<core::ascii::Char> for u8 {
     #[inline]
     fn safe_transmute_from(value: core::ascii::Char) -> Self {
         value.to_u8()
+    }
+}
+
+unsafe impl TransmuteGuard<bool> for u8 {}
+unsafe impl SafeTransmuteFrom<bool> for u8 {
+    #[inline]
+    fn safe_transmute_from(value: bool) -> Self {
+        value.into()
     }
 }
 

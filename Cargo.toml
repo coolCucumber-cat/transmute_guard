@@ -12,5 +12,5 @@ keywords = ["transmute", "convert"]
 [dependencies]
 
 [features]
-ascii_char = []
-nightly = ["ascii_char"]
+ascii = []
+nightly = ["ascii"]
