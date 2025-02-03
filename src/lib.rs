@@ -1,4 +1,5 @@
 #![no_std]
+#[cfg_attr(feature = "ascii", feature(ascii_char))]
 
 /// # Safety
 /// Only implement this trait if transmuting from `T` to `Self` and vice versa is safe
