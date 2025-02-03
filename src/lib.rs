@@ -67,10 +67,9 @@ where
 {
     #[inline]
     fn safe_transmute_ref_from(value: &[T]) -> &Self {
-        let u_ptr = core::ptr::from_ref(value);
-        let s_ptr = u_ptr as *const [u8];
-        let s: &[u8] = unsafe { &*(s_ptr) };
-        unsafe { core::str::from_utf8_unchecked(s) }
+        let u_ptr: *const [T] = core::ptr::from_ref(value);
+        let s_ptr: *const str = u_ptr as *const str;
+        unsafe { &*(s_ptr) }
     }
 }
 #[cfg(feature = "ascii")]
@@ -80,10 +79,9 @@ where
 {
     #[inline]
     fn safe_transmute_mut_from(value: &mut [U]) -> &mut Self {
-        let u_ptr = core::ptr::from_mut(value);
-        let s_ptr = u_ptr as *mut [u8];
-        let s: &mut [u8] = unsafe { &mut *(s_ptr) };
-        unsafe { core::str::from_utf8_unchecked_mut(s) }
+        let u_ptr: *mut [T] = core::ptr::from_mut(value);
+        let s_ptr: *mut str = u_ptr as *mut str;
+        unsafe { &mut *(s_ptr) }
     }
 }
 
